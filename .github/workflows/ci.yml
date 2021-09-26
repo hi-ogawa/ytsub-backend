@@ -1,0 +1,28 @@
+name: CI
+on: [push]
+jobs:
+  lint:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9.7"
+      - uses: actions/checkout@v2
+      - run: make install
+      - run: make lint/check
+      - run: make mypy
+
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9.7"
+      - uses: actions/checkout@v2
+      - run: make install
+      - run: docker-compose pull
+      - run: docker-compose up -d
+      - run: while ! docker-compose exec -T postgres psql postgres postgres -c '\q'; do sleep 1; done
+      - run: make db/reset/test
+      - run: make test
+      - run: docker-compose down

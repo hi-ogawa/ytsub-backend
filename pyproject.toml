@@ -1,0 +1,17 @@
+[tool.mypy]
+plugins = "sqlalchemy.ext.mypy.plugin"
+
+[tool.pytest]
+
+[tool.isort]
+profile = "black"
+
+[tool.pylint.messages_control]
+max-line-length = 88
+disable = [
+  "C",
+  "R",
+  "no-name-in-module",
+  "fixme",
+  "unspecified-encoding",
+]

@@ -1,0 +1,5 @@
+{
+  "database_url": "postgresql+asyncpg://postgres:password@localhost:5432/dev-db",
+  "database_echo": true,
+  "jwt_secret": "dev-secret"
+}
